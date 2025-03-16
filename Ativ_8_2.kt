@@ -4,29 +4,37 @@ fun main() {
     // No final, se a média for maior que cinco o usuário receberá uma mensagem "Você passou no teste".
     // Em qualquer outra situação, ele receberá uma mensagem de "tente novamente"
 
-    val quantNotas = 4
-    val notas = mutableListOf<Double>()
+    val numValidos = mutableListOf<Double>()
 
-    //loop para ler 4 notas
-    for(i in 1 ..quantNotas){
-        println("Digite o valor $i º(entre 0 e 10): ")
-        val nota = readln()?.toDoubleOrNull()
+    //solicita ao usuário quatro números
+    for (i in 1..4){
+        while (true){
+            print("Digite o $i° número (entre 0 e 10): ")
+            val num = readlnOrNull()?.toDoubleOrNull()
 
-        if(nota != null){
-            notas.add(nota) // adiciona o valor á lista
+            if(num != null && num > 0 && num < 10){
+                numValidos.add(num)
+                break
+            }else{
+                println("Número inválido! Digite um valor entre 0 e 10.")
+            }
         }
-        else{
-            println("Entrada inválida. Por favor, digite um número válido")
-            return // encerra o programa se a entrada for inválida
-        }
+
     }
-    //exibe as notas
-    println("\nNotas informadas:")
-    notas.forEachIndexed { index, nota ->
-        println("valor ${index + 1}: $nota")
+    var soma = 0.0
+    for (numero in numValidos) {
+        soma += numero
     }
-    // calcula a média aritmética
-    val media = notas.average()
-    println("\nA média aitmética das notas é: $media")
+    val media = soma / numValidos.size
+
+    // Exibe a média
+    println("Média calculada: $media")
+
+    // Verifica a média e exibe a mensagem correspondente
+    if (media > 5) {
+        println("Você passou no teste!")
+    } else {
+        println("Tente novamente.")
+    }
 
 }
